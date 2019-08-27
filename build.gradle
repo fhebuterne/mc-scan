@@ -19,7 +19,6 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile files("libs/enklume.jar")
     compile files("libs/jo-nbt-1.3.0.jar")
     compile files("libs/jansi-1.18.jar")
