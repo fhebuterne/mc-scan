@@ -52,7 +52,7 @@ public class McScan {
                         " | |  | | |____   ____) | |____ / ____ \\| |\\  |\n" +
                         " |_|  |_|\\_____| |_____/ \\_____/_/    \\_\\_| \\_|\n" +
                         "                                               \n"
-        ).fgGreen().a(" By Fabien HEBUTERNE").newline().a(" Github : https://github.com/fabien91/mc-scan").reset().newline());
+        ).fgGreen().a(" By Fabien HEBUTERNE").newline().a(" Github : https://github.com/fhebuterne/mc-scan").reset().newline());
     }
 
     private static CommandLine initOptions(String[] args) {
