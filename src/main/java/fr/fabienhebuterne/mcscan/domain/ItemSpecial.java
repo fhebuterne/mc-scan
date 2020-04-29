@@ -10,15 +10,17 @@ public class ItemSpecial {
     private String id;
     private String name;
     private ListTag lore;
+    private ListTag enchantment;
     private HashSet<Location> locations;
     private HashSet<String> uuidInventory;
 
-    public ItemSpecial(String id, String name, ListTag lore) {
+    public ItemSpecial(String id, String name, ListTag lore, ListTag enchantment) {
         this.locations = new HashSet<>();
         this.uuidInventory = new HashSet<>();
         this.id = id;
         this.name = name;
         this.lore = lore;
+        this.enchantment = enchantment;
     }
 
     public String getId() {
@@ -65,6 +67,14 @@ public class ItemSpecial {
         }
     }
 
+    public ListTag getEnchantment() {
+        return enchantment;
+    }
+
+    public void setEnchantment(ListTag enchantment) {
+        this.enchantment = enchantment;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,12 +82,15 @@ public class ItemSpecial {
         ItemSpecial that = (ItemSpecial) o;
         return Objects.equals(getId(), that.getId()) &&
                 Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getLore(), that.getLore());
+                Objects.equals(getLore(), that.getLore()) &&
+                Objects.equals(getEnchantment(), that.getEnchantment()) &&
+                Objects.equals(getLocations(), that.getLocations()) &&
+                Objects.equals(getUuidInventory(), that.getUuidInventory());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getLore());
+        return Objects.hash(getId(), getName(), getLore(), getEnchantment(), getLocations(), getUuidInventory());
     }
 
     @Override
@@ -86,7 +99,9 @@ public class ItemSpecial {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", lore=" + lore +
-                ", location=" + locations +
+                ", enchantment='" + enchantment + '\'' +
+                ", locations=" + locations +
+                ", uuidInventory=" + uuidInventory +
                 '}';
     }
 }
