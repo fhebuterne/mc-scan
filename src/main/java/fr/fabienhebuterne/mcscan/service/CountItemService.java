@@ -6,7 +6,9 @@ import se.llbit.nbt.ListTag;
 import se.llbit.nbt.SpecificTag;
 import se.llbit.nbt.Tag;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -32,8 +34,35 @@ public class CountItemService {
         });
     }
 
+    public void treatmentEntities(HashMap<ItemSpecial, Integer> itemSpecials, SpecificTag read) {
+        Tag entities = read.asCompound().get("").get("Level").get("Entities");
+
+        Pattern patternContainers = Pattern.compile("^itemframe$");
+
+        Stream.of(entities.asList()).forEach(entity -> {
+            entity.items.stream()
+                    .filter(specificTag -> patternContainers.matcher(specificTag.get("id").stringValue().toLowerCase()).find())
+                    .forEach(specificTag -> {
+                        int x = specificTag.get("TileX").intValue();
+                        int y = specificTag.get("TileY").intValue();
+                        int z = specificTag.get("TileZ").intValue();
+
+                        Location location = new Location(x, y, z);
+
+                        parseItems(itemSpecials, specificTag, location, null, "Item");
+                    });
+        });
+    }
+
     public void parseItems(HashMap<ItemSpecial, Integer> itemSpecials, SpecificTag specificTag, Location location, String uuid, String baseTag) {
-        specificTag.get(baseTag).asList().items.stream()
+        List<SpecificTag> items;
+        if (baseTag.equals("Item")) {
+            items = Collections.singletonList(specificTag.get("Item").asCompound());
+        } else {
+            items = specificTag.get(baseTag).asList().items;
+        }
+
+        items.stream()
                 .filter(item -> item.get("tag").get("display").asCompound() != null)
                 .filter(item -> item.get("tag").get("display").get("Lore").asList().size() > 0
                         || item.get("tag").get("display").get("Name").asList() != null

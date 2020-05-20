@@ -52,6 +52,7 @@ public class AnalyseWorldService {
                         SpecificTag specificTag = CompoundTag.read(dataInputStream);
 
                         countItemService.treatmentTileEntities(itemSpecials, specificTag);
+                        countItemService.treatmentEntities(itemSpecials, specificTag);
                     }
                 }
                 minecraftRegion.close();
