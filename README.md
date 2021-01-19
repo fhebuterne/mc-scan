@@ -1,5 +1,7 @@
 # McScan (beta)
 
+This project is archived, please check new version : https://github.com/fhebuterne/McScanKt
+
 McScan analyse a minecraft map and get all items with custom name and / or lore 
 from chest, hopper and inventory players (if map contain playerdata).  
 McScan does a ranking with items locations and players UUID.
